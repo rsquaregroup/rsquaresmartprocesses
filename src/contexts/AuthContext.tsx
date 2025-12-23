@@ -44,14 +44,29 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   const fetchProfile = async (userObj: User) => {
     try {
-      const { data: profileData, error: profileError } = await supabase
+      let { data: profileData, error: profileError } = await supabase
         .from("profiles")
         .select("id, full_name, email")
         .eq("id", userObj.id)
         .single();
 
-      if (profileError) {
-        console.warn("Error fetching profile:", profileError);
+      if (profileError || !profileData) {
+        const { data: createdProfile, error: createError } = await supabase
+          .from("profiles")
+          .insert({
+            id: userObj.id,
+            full_name: userObj.user_metadata?.full_name ?? userObj.email ?? "User",
+            email: userObj.email ?? "",
+          })
+          .select("id, full_name, email")
+          .single();
+
+        if (createError) {
+          console.warn("Error creating profile:", createError);
+        } else {
+          profileData = createdProfile;
+          profileError = null;
+        }
       }
 
       const { data: rolesData, error: roleError } = await supabase
@@ -110,18 +125,6 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
     if (authError) return { error: authError };
     if (!authData.user) return { error: new Error("User creation failed") };
-
-    const { error: profileError } = await supabase
-      .from("profiles")
-      .insert({ id: authData.user.id, full_name: fullName, email });
-
-    if (profileError) return { error: profileError };
-
-    const { error: roleError } = await supabase
-      .from("user_roles")
-      .insert({ user_id: authData.user.id, role: "requester" });
-
-    if (roleError) return { error: roleError };
 
     return { error: null };
   };
