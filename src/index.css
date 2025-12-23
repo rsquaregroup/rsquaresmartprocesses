@@ -1,0 +1,184 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
+All colors MUST be HSL.
+*/
+
+@layer base {
+  :root {
+    --background: 0 0% 98%;
+    --foreground: 345 30% 15%;
+    
+    --card: 0 0% 100%;
+    --card-foreground: 345 30% 15%;
+    
+    --popover: 0 0% 100%;
+    --popover-foreground: 345 30% 15%;
+    
+    --primary: 345 58% 52%;
+    --primary-foreground: 0 0% 100%;
+    --primary-glow: 345 58% 62%;
+    
+    --secondary: 345 10% 92%;
+    --secondary-foreground: 345 30% 15%;
+    
+    --muted: 345 10% 95%;
+    --muted-foreground: 345 10% 45%;
+    
+    --accent: 345 50% 88%;
+    --accent-foreground: 345 30% 15%;
+    
+    --destructive: 0 72% 51%;
+    --destructive-foreground: 0 0% 100%;
+    
+    --border: 345 15% 88%;
+    --input: 345 15% 88%;
+    --ring: 345 58% 52%;
+    
+    --radius: 0.75rem;
+    
+    --sidebar-background: 0 0% 100%;
+    --sidebar-foreground: 345 30% 15%;
+    --sidebar-primary: 345 58% 52%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 345 10% 95%;
+    --sidebar-accent-foreground: 345 30% 15%;
+    --sidebar-border: 345 15% 88%;
+    --sidebar-ring: 345 58% 52%;
+    
+    /* Glass effects */
+    --glass-bg: 0 0% 100% / 0.6;
+    --glass-border: 345 15% 88% / 0.3;
+    
+    /* Gradients */
+    --gradient-primary: linear-gradient(135deg, hsl(345 58% 52%) 0%, hsl(345 58% 62%) 100%);
+    --gradient-subtle: linear-gradient(180deg, hsl(0 0% 98%) 0%, hsl(345 10% 95%) 100%);
+    
+    /* Shadows */
+    --shadow-sm: 0 1px 2px 0 hsl(345 30% 15% / 0.05);
+    --shadow-md: 0 4px 6px -1px hsl(345 30% 15% / 0.1), 0 2px 4px -2px hsl(345 30% 15% / 0.1);
+    --shadow-lg: 0 10px 15px -3px hsl(345 30% 15% / 0.1), 0 4px 6px -4px hsl(345 30% 15% / 0.1);
+    --shadow-glow: 0 0 20px hsl(345 58% 52% / 0.3);
+    
+    /* Transitions */
+    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .dark {
+    --background: 345 25% 8%;
+    --foreground: 345 5% 95%;
+    
+    --card: 345 20% 12%;
+    --card-foreground: 345 5% 95%;
+    
+    --popover: 345 20% 12%;
+    --popover-foreground: 345 5% 95%;
+    
+    --primary: 345 58% 52%;
+    --primary-foreground: 0 0% 100%;
+    --primary-glow: 345 58% 62%;
+    
+    --secondary: 345 15% 18%;
+    --secondary-foreground: 345 5% 95%;
+    
+    --muted: 345 15% 18%;
+    --muted-foreground: 345 10% 65%;
+    
+    --accent: 345 20% 20%;
+    --accent-foreground: 345 5% 95%;
+    
+    --destructive: 0 72% 51%;
+    --destructive-foreground: 0 0% 100%;
+    
+    --border: 345 15% 22%;
+    --input: 345 15% 22%;
+    --ring: 345 58% 52%;
+    
+    --sidebar-background: 345 20% 10%;
+    --sidebar-foreground: 345 5% 95%;
+    --sidebar-primary: 345 58% 52%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 345 15% 18%;
+    --sidebar-accent-foreground: 345 5% 95%;
+    --sidebar-border: 345 15% 22%;
+    --sidebar-ring: 345 58% 52%;
+    
+    /* Glass effects */
+    --glass-bg: 345 20% 12% / 0.6;
+    --glass-border: 345 15% 22% / 0.3;
+    
+    /* Shadows */
+    --shadow-sm: 0 1px 2px 0 hsl(0 0% 0% / 0.15);
+    --shadow-md: 0 4px 6px -1px hsl(0 0% 0% / 0.2), 0 2px 4px -2px hsl(0 0% 0% / 0.15);
+    --shadow-lg: 0 10px 15px -3px hsl(0 0% 0% / 0.2), 0 4px 6px -4px hsl(0 0% 0% / 0.15);
+    --shadow-glow: 0 0 25px hsl(345 58% 52% / 0.4);
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+    font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  }
+
+  input[type="radio"] {
+    accent-color: hsl(var(--primary));
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+  }
+}
+
+@layer components {
+  .scrollbar-hidden {
+    scrollbar-width: none;
+  }
+
+  .scrollbar-hidden::-webkit-scrollbar {
+    display: none;
+  }
+
+  .glass-card {
+    @apply bg-white/60 dark:bg-card/60 backdrop-blur-md border border-border/30;
+  }
+  
+  .btn-primary-gradient {
+    background: var(--gradient-primary);
+    @apply text-primary-foreground shadow-md hover:shadow-lg transition-all duration-300;
+  }
+  
+  .shadow-glow {
+    box-shadow: var(--shadow-glow);
+  }
+  
+  .transition-smooth {
+    transition: var(--transition-smooth);
+  }
+
+  /* Success toast styling */
+  .toaster .toast[data-type="success"] {
+    background-color: #2EA84A;
+    color: #fff;
+  }
+  .toaster .toast[data-type="success"] .description {
+    color: rgba(255, 255, 255, 0.92);
+  }
+
+  /* Error toast styling */
+  .toaster .toast[data-type="error"] {
+    background-color: #EF2F15;
+    color: #fff;
+  }
+  .toaster .toast[data-type="error"] .description {
+    color: rgba(255, 255, 255, 0.92);
+  }
+}
